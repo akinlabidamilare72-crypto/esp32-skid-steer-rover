@@ -20,3 +20,30 @@ A remote-controlled 4WD robot car driven by an ESP32 microcontroller, utilizing 
 ## Wiring Diagram & Power Routing
 
 Since this project uses point-to-point hand wiring with screw terminals, the complete schematic flow is detailed below:
+[2x 18650 Cells (7.4V)]
+|
++---> [SPST Power Switch]
+|
++--------------------+
+|                    |
+[L298N 12V In]      [LM2596 In (+)]
+[L298N GND] <------+ [LM2596 In (-)]
+|
+(Stepped to 5.0V)
+|
+[ESP32 5V / VIN]
+[ESP32 GND]
+
+Control Connections:
+
+ESP32 GPIO 25 ---> L298N IN1 (Left Forward)
+
+ESP32 GPIO 26 ---> L298N IN2 (Left Reverse)
+
+ESP32 GPIO 27 ---> L298N IN3 (Right Forward)
+
+ESP32 GPIO 14 ---> L298N IN4 (Right Reverse)
+
+Common Ground : ESP32 GND connected to L298N GND & Battery Negative
+## Chassis Layout
+The chassis is constructed from 3mm/4mm cut plywood with motor brackets mounted on the underside. Detailed cutting templates and 3D mount files are organized in the `/hardware` folder.
