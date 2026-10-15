@@ -1,0 +1,16 @@
+solid chassis_base
+  facet normal 0 0 1
+    outer loop
+      vertex 0 0 0
+      vertex 200 0 0
+      vertex 200 150 0
+    endloop
+  endfacet
+  facet normal 0 0 1
+    outer loop
+      vertex 0 0 0
+      vertex 200 150 0
+      vertex 0 150 0
+    endloop
+  endfacet
+endsolid chassis_base
