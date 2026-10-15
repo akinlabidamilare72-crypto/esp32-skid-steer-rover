@@ -1,3 +1,4 @@
+<img width="1728" height="3072" alt="IMG_20261015_064420_024@1935144976" src="https://github.com/user-attachments/assets/c110f218-3873-4c6f-8ec3-19eeb7575c72" />
 # esp32-skid steer rover
 A 4-wheel-drive remote control car powered by an ESP32 and controlled over Bluetooth/Wi-Fi. Designed with an independent dual-channel drive system (skid-steer/electronic differential) mounted on a custom plywood chassis.
 ===
