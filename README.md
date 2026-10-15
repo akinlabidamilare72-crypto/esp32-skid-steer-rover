@@ -2,7 +2,9 @@
 
 A remote-controlled 4WD robot car driven by an ESP32 microcontroller, utilizing dual-channel skid-steering and an electronic differential layout mounted on a custom lightweight plywood chassis.
 
-![Chassis and Hardware Overview](motors.jpg)
+![Chassis and Hardware Overview](motors.jpg)![Motor Hardware](motors.jpg)
+
+![Chassis Layout](motors.jpg)
 
 ## Bill of Materials
 
