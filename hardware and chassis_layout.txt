@@ -1,0 +1,5 @@
+Plywood Chassis Dimensions:
+- Length: 200 mm
+- Width: 150 mm
+- Material: 3mm Birch Plywood
+- Mounting Holes: M3 clearance holes for L298N module, ESP32 standoffs, and TT motor brackets.
