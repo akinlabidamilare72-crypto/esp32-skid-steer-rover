@@ -26,3 +26,15 @@
 
 ### Simulation Screenshot
 ![Wokwi ESP32 Circuit Simulation](simulation.png)
+## Entry 3 - Wokwi Simulation Wiring and Pin Validation (2h 00m)
+
+**Time spent:** 2 hours
+
+### Work Done
+- Built the interactive breadboard circuit on Wokwi to validate ESP32 GPIO logic before hardware procurement.
+- Wired 4 channel indicator LEDs through current-limiting resistors to pins 25, 26, 27, and 14 to represent L298N forward/reverse inputs.
+- Resolved analog ground loop errors by tying the joystick common ground rail back to ESP32 GND.
+- Tested differential turning calculations and verified dual-track outputs in real time.
+
+### Simulation Photo
+![Simulation Testing](simulation.png)
