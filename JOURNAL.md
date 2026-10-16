@@ -24,7 +24,8 @@
   - Directional steering reduces or cuts power to the inside wheel track to simulate tank/skid steering.
   - Zero-radius spins reverse opposite tracks when turning from a standstill.
 
-### Simulation Screenshot
+### Simulation Screenshot<img width="1200" height="896" alt="rover_prototype_render_1792144856178" src="https://github.com/user-attachments/assets/663ae476-8126-4e1e-9af7-e7ab5e48a88d" />
+
 ![Wokwi ESP32 Circuit Simulation](simulation.png)
 ## Entry 3 - Wokwi Simulation Wiring and Pin Validation (2h 00m)
 
@@ -38,3 +39,8 @@
 
 ### Simulation Photo
 ![Simulation Testing](simulation.png)
+### Prototype Chassis & Layout Render
+Designed the physical layout showing board spacing, 3mm laser-cut plywood chassis, motor offsets, and wiring routes:
+
+![3D Chassis and Electronics Layout](![Uploading rover_prototype_render_1792144856178.jpg…]()
+)
