@@ -1,3 +1,4 @@
+<img width="1200" height="896" alt="rover_prototype_render_1792144856178" src="https://github.com/user-attachments/assets/aa842943-a18c-4fe0-a8b0-45b7de8c2606" />
 # 4WD ESP32 Differential RC Car
 <img width="1728" height="3072" alt="IMG_20261015_064420_024@1935144976" src="https://github.com/user-attachments/assets/2805a685-aa5f-4020-b0da-e2bae42692f0" />
 
