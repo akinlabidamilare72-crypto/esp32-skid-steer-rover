@@ -12,3 +12,17 @@
 
 ### Hardware Photo
 ![Motors](motors.jpg)
+## Entry 2 - Firmware Simulation and Differential Logic (3h 00m)
+
+**Time spent:** 3 hours
+
+### Work Done
+- Built a virtual testing environment on Wokwi featuring the ESP32, an analog joystick, and 4 status LEDs to represent the L298N motor channels.
+- Resolved circuit issues: corrected floating analog ground loops by tying joystick GND back to the ESP32 common ground rail and corrected GPIO pin mappings.
+- Wrote and tested differential steering logic in C++:
+  - Straight forward/reverse driving triggers both motor banks in tandem.
+  - Directional steering reduces or cuts power to the inside wheel track to simulate tank/skid steering.
+  - Zero-radius spins reverse opposite tracks when turning from a standstill.
+
+### Simulation Screenshot
+![Wokwi ESP32 Circuit Simulation](simulation.png)
