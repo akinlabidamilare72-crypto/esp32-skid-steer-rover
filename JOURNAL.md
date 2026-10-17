@@ -59,4 +59,6 @@ Designed the physical layout showing board spacing, 3mm laser-cut plywood chassi
 - Programmed dual H-bridge motor logic with soft-start PWM acceleration ramping to prevent current spikes and brownout resets.
 
 ### Progress Photo
-![Web Controller Dashboard](web_ui.png)
+<img width="1050" height="727" alt="image" src="https://github.com/user-attachments/assets/0eb8216e-0e03-4075-91df-f43c8bc67757" /> <img width="950" height="522" alt="image" src="https://github.com/user-attachments/assets/3d27a0d9-baaa-419c-b0e6-7df8e7da05f4" />
+
+
