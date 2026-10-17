@@ -29,7 +29,7 @@
 ![Wokwi ESP32 Circuit Simulation](simulation.png)
 ## Entry 3 - Wokwi Simulation Wiring and Pin Validation (2h 00m)
 
-**Time spent:** 2 hours
+**Time spent:** 3 hours
 
 ### Work Done
 - Built the interactive breadboard circuit on Wokwi to validate ESP32 GPIO logic before hardware procurement.
