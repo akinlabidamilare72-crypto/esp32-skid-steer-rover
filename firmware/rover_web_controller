@@ -1,0 +1,636 @@
+#include <WiFi.h>
+#include <WebServer.h>
+#include <WebSocketsServer.h>
+
+// --- L298N Motor Driver Pins ---
+#define LEFT_IN1   25
+#define LEFT_IN2   26
+#define RIGHT_IN3  27
+#define RIGHT_IN4  14
+#define STATUS_LED 2
+
+// --- PWM Channels (ESP32 LEDC) ---
+const int PWM_FREQ = 1000;
+const int PWM_RES  = 8;
+const int CH_IN1   = 0;
+const int CH_IN2   = 1;
+const int CH_IN3   = 2;
+const int CH_IN4   = 3;
+
+// --- Servers ---
+WebServer server(80);
+WebSocketsServer webSocket = WebSocketsServer(81);
+
+// --- Motion & Drive State ---
+char gear = 'D';              // 'D' (Drive) or 'R' (Reverse)
+int inputThrottle = 0;        // 0 to 100%
+int inputBrake = 0;           // 0 to 100%
+int inputSteer = 0;           // -100 (Full Left) to +100 (Full Right)
+int powerLimit = 65;          // 0 to 100% (default 65%)
+
+int targetSpeedLeft = 0;
+int targetSpeedRight = 0;
+int currentSpeedLeft = 0;
+int currentSpeedRight = 0;
+const int RAMP_STEP = 10;     // Soft-start acceleration step (anti-brownout)
+
+unsigned long lastPacket = 0;
+const unsigned long WATCHDOG_MS = 600;
+
+// --- Embedded Web Controller (HTML, CSS, JS) ---
+const char INDEX_HTML[] PROGMEM = R"rawliteral(
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>axle — Simulation Controller</title>
+  <style>
+    :root {
+      --bg: #121614;
+      --card-bg: #1a201c;
+      --accent: #cbf33b;
+      --accent-muted: #2d3824;
+      --text-main: #f0f3f1;
+      --text-muted: #8b998f;
+      --danger: #ef4444;
+      --border: #28332a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-user-select: none; }
+    body {
+      background: var(--bg);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .brand { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.5px; }
+    .brand span { color: var(--accent); }
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; }
+
+    /* Main Container */
+    .dashboard {
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 53px);
+      padding: 16px 24px;
+      gap: 16px;
+    }
+
+    /* Mode & Shifter Bar */
+    .top-controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      max-width: 650px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .segmented {
+      display: flex;
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 4px;
+      border: 1px solid var(--border);
+    }
+    .seg-btn {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .seg-btn.active {
+      background: var(--accent);
+      color: #0d120e;
+    }
+
+    /* Desktop View */
+    .desktop-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 20px;
+      max-width: 900px;
+      margin: 20px auto 0;
+      width: 100%;
+    }
+    .panel {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .panel-title { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 16px; }
+    .key-cluster { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .key-row { display: flex; gap: 8px; }
+    .key-cap {
+      width: 52px; height: 52px;
+      background: #232c25;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 700;
+      box-shadow: 0 4px 0 #151a16;
+      transition: all 0.1s;
+    }
+    .key-cap.pressed {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 #151a16;
+      background: var(--accent);
+      color: #0d120e;
+    }
+    .limiter-wrap { margin-top: 16px; }
+    .limiter-header { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 8px; }
+    input[type=range] {
+      width: 100%;
+      accent-color: var(--accent);
+      height: 8px;
+      border-radius: 4px;
+    }
+
+    /* Mobile Arena */
+    .mobile-arena {
+      display: none;
+      position: relative;
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Pedals: Far Left & Far Right */
+    .pedal-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      touch-action: none;
+      z-index: 10;
+    }
+    .pedal-track {
+      width: 82px;
+      height: 220px;
+      background: #1e2621;
+      border: 2px solid var(--border);
+      border-radius: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    .pedal-fill {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 0%;
+      transition: height 0.05s linear;
+    }
+    #brakeFill { background: linear-gradient(to top, rgba(239,68,68,0.7), rgba(239,68,68,0.2)); }
+    #accelFill { background: linear-gradient(to top, rgba(203,243,59,0.7), rgba(203,243,59,0.2)); }
+    .pedal-ribs {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: space-evenly;
+      padding: 10px 14px; pointer-events: none;
+    }
+    .rib { height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; }
+    .pedal-label { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
+
+    /* Steering Wheel (Center) */
+    .wheel-container {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      touch-action: none;
+    }
+    .wheel-graphic {
+      width: 180px; height: 180px;
+      border: 14px solid #232c25;
+      border-radius: 50%;
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.05s linear;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    .wheel-top-marker {
+      position: absolute; top: -14px;
+      width: 14px; height: 14px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+    .wheel-hub {
+      width: 60px; height: 60px;
+      background: #18201a;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: 800; color: var(--accent);
+    }
+
+    /* Responsive Breakpoint */
+    @media (max-width: 850px) {
+      .desktop-grid { display: none; }
+      .mobile-arena { display: flex; }
+      header { padding: 8px 16px; }
+      .dashboard { padding: 12px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">axle <span>&bull; rover</span></div>
+    <div class="status-badge">
+      <div class="status-dot"></div>
+      <span id="connLabel">Connected</span>
+    </div>
+  </header>
+
+  <div class="dashboard">
+    <!-- Direction & Control Mode Toggles -->
+    <div class="top-controls">
+      <div class="segmented">
+        <button id="btnDrive" class="seg-btn active" onclick="setGear('D')">D &bull; Drive</button>
+        <button id="btnReverse" class="seg-btn" onclick="setGear('R')">R &bull; Reverse</button>
+      </div>
+      <div class="segmented">
+        <button id="btnSteerWheel" class="seg-btn active" onclick="setMode('wheel')">Steering</button>
+        <button id="btnTilt" class="seg-btn" onclick="setMode('tilt')">Tilt</button>
+      </div>
+    </div>
+
+    <!-- Desktop Grid View (WASD & Limiter) -->
+    <div class="desktop-grid">
+      <div class="panel">
+        <div class="panel-title">01 Movement Controls</div>
+        <div class="key-cluster">
+          <div class="key-cap" id="keyW">W</div>
+          <div class="key-row">
+            <div class="key-cap" id="keyA">A</div>
+            <div class="key-cap" id="keyS">S</div>
+            <div class="key-cap" id="keyD">D</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">02 Speed Limiter</div>
+        <div class="limiter-wrap">
+          <div class="limiter-header">
+            <span>Max Power</span>
+            <span id="limitVal">65%</span>
+          </div>
+          <input type="range" id="powerSlider" min="20" max="100" value="65" oninput="updateLimiter(this.value)">
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Arena (Pedals Far Left & Right, Centered Wheel) -->
+    <div class="mobile-arena" id="mobileArena">
+      <!-- Far Left: Brake Pedal -->
+      <div class="pedal-column" id="brakePedal">
+        <div class="pedal-track">
+          <div class="pedal-fill" id="brakeFill"></div>
+          <div class="pedal-ribs">
+            <div class="rib"></div><div class="rib"></div><div class="rib"></div>
+            <div class="rib"></div><div class="rib"></div><div class="rib"></div>
+          </div>
+        </div>
+        <span class="pedal-label" style="color:var(--danger)">Brake</span>
+      </div>
+
+      <!-- Center: Steering Wheel (Hidden on Tilt Mode) -->
+      <div class="wheel-container" id="wheelContainer">
+        <div class="wheel-graphic" id="wheelGraphic">
+          <div class="wheel-top-marker"></div>
+          <div class="wheel-hub">AX</div>
+        </div>
+        <span style="font-size:0.75rem; color:var(--text-muted); margin-top:8px;">Drag to steer</span>
+      </div>
+
+      <!-- Far Right: Accelerate Pedal -->
+      <div class="pedal-column" id="accelPedal">
+        <div class="pedal-track">
+          <div class="pedal-fill" id="accelFill"></div>
+          <div class="pedal-ribs">
+            <div class="rib"></div><div class="rib"></div><div class="rib"></div>
+            <div class="rib"></div><div class="rib"></div><div class="rib"></div>
+            <div class="rib"></div><div class="rib"></div>
+          </div>
+        </div>
+        <span class="pedal-label" style="color:var(--accent)">Accelerate</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let ws = new WebSocket(`ws://${window.location.hostname}:81/`);
+    let gear = 'D';
+    let mode = 'wheel';
+    let throttle = 0;
+    let brake = 0;
+    let steer = 0;
+    let limiter = 65;
+
+    // Send state packets (throttled to 25Hz)
+    setInterval(() => {
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.send(`S:${throttle},${brake},${steer},${gear},${limiter}`);
+      }
+    }, 40);
+
+    function setGear(g) {
+      gear = g;
+      document.getElementById('btnDrive').classList.toggle('active', g === 'D');
+      document.getElementById('btnReverse').classList.toggle('active', g === 'R');
+    }
+
+    // Steering Mode Selector: Hides Wheel on Tilt Mode
+    function setMode(m) {
+      mode = m;
+      document.getElementById('btnSteerWheel').classList.toggle('active', m === 'wheel');
+      document.getElementById('btnTilt').classList.toggle('active', m === 'tilt');
+
+      const wheelEl = document.getElementById('wheelContainer');
+      if (mode === 'tilt') {
+        wheelEl.style.display = 'none'; // Steering wheel disappears
+        enableTilt();
+      } else {
+        wheelEl.style.display = 'flex';
+        disableTilt();
+      }
+    }
+
+    function updateLimiter(v) {
+      limiter = parseInt(v);
+      document.getElementById('limitVal').innerText = limiter + '%';
+    }
+
+    // --- Mobile Touch Sliders (Pedals) ---
+    function setupPedal(elemId, fillId, onChange) {
+      const pedal = document.getElementById(elemId);
+      const fill = document.getElementById(fillId);
+      let activeTouchId = null;
+
+      function handleTouch(e) {
+        for (let t of e.changedTouches) {
+          if (activeTouchId === null || t.identifier === activeTouchId) {
+            activeTouchId = t.identifier;
+            const rect = pedal.getBoundingClientRect();
+            let ratio = (rect.bottom - t.clientY) / rect.height;
+            ratio = Math.max(0, Math.min(1, ratio));
+            fill.style.height = (ratio * 100) + '%';
+            onChange(Math.round(ratio * 100));
+          }
+        }
+      }
+
+      function resetTouch(e) {
+        for (let t of e.changedTouches) {
+          if (t.identifier === activeTouchId) {
+            activeTouchId = null;
+            fill.style.height = '0%';
+            onChange(0);
+          }
+        }
+      }
+
+      pedal.addEventListener('touchstart', handleTouch, { passive: false });
+      pedal.addEventListener('touchmove', handleTouch, { passive: false });
+      pedal.addEventListener('touchend', resetTouch);
+      pedal.addEventListener('touchcancel', resetTouch);
+    }
+
+    setupPedal('accelPedal', 'accelFill', v => throttle = v);
+    setupPedal('brakePedal', 'brakeFill', v => brake = v);
+
+    // --- Virtual Steering Wheel Drag Logic ---
+    const wheelContainer = document.getElementById('wheelContainer');
+    const wheelGraphic = document.getElementById('wheelGraphic');
+    let wheelTouchId = null;
+
+    wheelContainer.addEventListener('touchmove', (e) => {
+      const rect = wheelGraphic.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      for (let t of e.changedTouches) {
+        const deltaX = t.clientX - centerX;
+        const deltaY = t.clientY - centerY;
+        let angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI) + 90;
+        if (angle > 180) angle -= 360;
+        angle = Math.max(-80, Math.min(80, angle));
+        wheelGraphic.style.transform = `rotate(${angle}deg)`;
+        steer = Math.round((angle / 80) * 100);
+      }
+    }, { passive: false });
+
+    function resetWheel() {
+      wheelGraphic.style.transform = 'rotate(0deg)';
+      steer = 0;
+    }
+    wheelContainer.addEventListener('touchend', resetWheel);
+    wheelContainer.addEventListener('touchcancel', resetWheel);
+
+    // --- Device Tilt Gyroscope Handler ---
+    function handleOrientation(e) {
+      if (mode !== 'tilt') return;
+      let gamma = e.gamma; // Left-to-right roll (-90 to 90)
+      if (gamma === null) return;
+      gamma = Math.max(-45, Math.min(45, gamma));
+      steer = Math.round((gamma / 45) * 100);
+    }
+
+    function enableTilt() {
+      if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+        DeviceOrientationEvent.requestPermission().then(state => {
+          if (state === 'granted') window.addEventListener('deviceorientation', handleOrientation);
+        });
+      } else {
+        window.addEventListener('deviceorientation', handleOrientation);
+      }
+    }
+
+    function disableTilt() {
+      window.removeEventListener('deviceorientation', handleOrientation);
+      steer = 0;
+    }
+
+    // --- Desktop Keyboard Handlers (WASD) ---
+    const keys = {};
+    window.addEventListener('keydown', (e) => {
+      const k = e.key.toLowerCase();
+      if (!keys[k]) {
+        keys[k] = true;
+        updateDesktopControls();
+      }
+    });
+    window.addEventListener('keyup', (e) => {
+      keys[e.key.toLowerCase()] = false;
+      updateDesktopControls();
+    });
+
+    function updateDesktopControls() {
+      document.getElementById('keyW').classList.toggle('pressed', !!keys['w']);
+      document.getElementById('keyA').classList.toggle('pressed', !!keys['a']);
+      document.getElementById('keyS').classList.toggle('pressed', !!keys['s']);
+      document.getElementById('keyD').classList.toggle('pressed', !!keys['d']);
+
+      // Throttle & Brake
+      throttle = keys['w'] ? 100 : 0;
+      brake = (keys['s'] || keys[' ']) ? 100 : 0;
+
+      // Steering
+      if (keys['a'] && !keys['d']) steer = -100;
+      else if (keys['d'] && !keys['a']) steer = 100;
+      else steer = 0;
+    }
+  </script>
+</body>
+</html>
+)rawliteral";
+
+// --- Motor Output Hardware Helper ---
+void setMotorChannel(int fwdCh, int revCh, int duty) {
+  if (duty > 0) {
+    ledcWrite(fwdCh, duty);
+    ledcWrite(revCh, 0);
+  } else if (duty < 0) {
+    ledcWrite(fwdCh, 0);
+    ledcWrite(revCh, abs(duty));
+  } else {
+    ledcWrite(fwdCh, 0);
+    ledcWrite(revCh, 0);
+  }
+}
+
+// --- WebSocket Event Handler ---
+void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length) {
+  if (type == WStype_TEXT) {
+    lastPacket = millis();
+    // Parse "S:throttle,brake,steer,gear,limiter"
+    String msg = (char*)payload;
+    if (msg.startsWith("S:")) {
+      msg = msg.substring(2);
+      int c1 = msg.indexOf(',');
+      int c2 = msg.indexOf(',', c1 + 1);
+      int c3 = msg.indexOf(',', c2 + 1);
+      int c4 = msg.indexOf(',', c3 + 1);
+
+      if (c1 > 0 && c2 > 0 && c3 > 0 && c4 > 0) {
+        inputThrottle = msg.substring(0, c1).toInt();
+        inputBrake    = msg.substring(c1 + 1, c2).toInt();
+        inputSteer    = msg.substring(c2 + 1, c3).toInt();
+        gear          = msg.charAt(c3 + 1);
+        powerLimit    = msg.substring(c4 + 1).toInt();
+      }
+    }
+  }
+}
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(STATUS_LED, OUTPUT);
+
+  // Set up 4 PWM channels on ESP32 LEDC
+  ledcSetup(CH_IN1, PWM_FREQ, PWM_RES);
+  ledcSetup(CH_IN2, PWM_FREQ, PWM_RES);
+  ledcSetup(CH_IN3, PWM_FREQ, PWM_RES);
+  ledcSetup(CH_IN4, PWM_FREQ, PWM_RES);
+
+  ledcAttachPin(LEFT_IN1, CH_IN1);
+  ledcAttachPin(LEFT_IN2, CH_IN2);
+  ledcAttachPin(RIGHT_IN3, CH_IN3);
+  ledcAttachPin(RIGHT_IN4, CH_IN4);
+
+  // Broadcast private SoftAP Wi-Fi network
+  WiFi.softAP("ESP32-Rover", "");
+  Serial.println("Wi-Fi AP active. SSID: ESP32-Rover");
+  Serial.print("Access URL: http://");
+  Serial.println(WiFi.softAPIP());
+
+  // Serve controller page
+  server.on("/", HTTP_GET, []() {
+    server.send_P(200, "text/html", INDEX_HTML);
+  });
+  server.begin();
+
+  webSocket.begin();
+  webSocket.onEvent(webSocketEvent);
+}
+
+void loop() {
+  server.handleClient();
+  webSocket.loop();
+
+  // Watchdog: Halt vehicle if client connection drops
+  if (millis() - lastPacket > WATCHDOG_MS) {
+    inputThrottle = 0;
+    inputBrake = 100;
+  }
+
+  // --- Drive & Differential Calculations ---
+  if (inputBrake > 10) {
+    // Proportional electrical braking
+    targetSpeedLeft = 0;
+    targetSpeedRight = 0;
+  } else {
+    // Scale throttle by selected Max Power limiter
+    float basePwm = (inputThrottle / 100.0) * (powerLimit / 100.0) * 255.0;
+    if (gear == 'R') basePwm = -basePwm;
+
+    float steerNorm = inputSteer / 100.0; // -1.0 to +1.0
+
+    if (abs(basePwm) < 10 && abs(inputSteer) > 15) {
+      // Zero-Radius Spin from standstill
+      float spinPwm = (powerLimit / 100.0) * 200.0;
+      targetSpeedLeft  = steerNorm * spinPwm;
+      targetSpeedRight = -steerNorm * spinPwm;
+    } else {
+      // Proportional Electronic Differential Curving
+      if (steerNorm > 0) {
+        // Turning Right: slow down right track
+        targetSpeedLeft  = basePwm;
+        targetSpeedRight = basePwm * (1.0 - (steerNorm * 0.75));
+      } else {
+        // Turning Left: slow down left track
+        targetSpeedLeft  = basePwm * (1.0 - (abs(steerNorm) * 0.75));
+        targetSpeedRight = basePwm;
+      }
+    }
+  }
+
+  // Soft-start Acceleration Ramping
+  if (currentSpeedLeft < targetSpeedLeft) currentSpeedLeft = min(currentSpeedLeft + RAMP_STEP, targetSpeedLeft);
+  else if (currentSpeedLeft > targetSpeedLeft) currentSpeedLeft = max(currentSpeedLeft - RAMP_STEP, targetSpeedLeft);
+
+  if (currentSpeedRight < targetSpeedRight) currentSpeedRight = min(currentSpeedRight + RAMP_STEP, targetSpeedRight);
+  else if (currentSpeedRight > targetSpeedRight) currentSpeedRight = max(currentSpeedRight - RAMP_STEP, targetSpeedRight);
+
+  // Output to L298N channels
+  setMotorChannel(CH_IN1, CH_IN2, currentSpeedLeft);
+  setMotorChannel(CH_IN3, CH_IN4, currentSpeedRight);
+
+  delay(15);
+}
