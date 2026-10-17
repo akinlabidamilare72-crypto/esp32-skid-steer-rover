@@ -44,3 +44,19 @@ Designed the physical layout showing board spacing, 3mm laser-cut plywood chassi
 
 ![3D Chassis and Electronics Layout](![Uploading rover_prototype_render_1792144856178.jpg…]()
 )
+## Entry 4 - Full-Stack Web Controller UI & WebSocket Firmware (3h 00m)
+
+**Time spent:** 3 hours
+
+### Work Done
+- Shifted architecture from standard Bluetooth serial to a standalone ESP32 SoftAP web server hosting its own in-browser controller at `192.168.4.1`.
+- Designed and built the responsive web dashboard:
+  - Mobile interface: Ergonomic layout with the brake pedal locked to the far-left and the accelerator slider to the far-right for natural two-thumb driving.
+  - Gyroscope & Tilt integration: Implemented device orientation handling so the virtual steering wheel automatically hides when tilt mode is active.
+  - Desktop interface: Added full WASD keyboard event listeners and a dynamic "Max Power / Speed Limiter" slider.
+- Embedded the HTML, CSS, and client-side JavaScript directly into ESP32 PROGMEM flash memory.
+- Integrated low-latency WebSockets (port 81) to transmit packet states at 25Hz, complete with a 600ms safety watchdog that cuts power if connection drops.
+- Programmed dual H-bridge motor logic with soft-start PWM acceleration ramping to prevent current spikes and brownout resets.
+
+### Progress Photo
+![Web Controller Dashboard](web_ui.png)
