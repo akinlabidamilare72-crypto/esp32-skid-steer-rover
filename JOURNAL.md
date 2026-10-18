@@ -60,5 +60,51 @@ Designed the physical layout showing board spacing, 3mm laser-cut plywood chassi
 
 ### Progress Photo
 <img width="1050" height="727" alt="image" src="https://github.com/user-attachments/assets/0eb8216e-0e03-4075-91df-f43c8bc67757" /> <img width="950" height="522" alt="image" src="https://github.com/user-attachments/assets/3d27a0d9-baaa-419c-b0e6-7df8e7da05f4" />
+## Entry 5 - Landscape UI Architecture, Input Expansion & Mobile Optimization (3h 30m)
 
+**Time spent:** 3 hours 30 mins
+
+### Work Done
+- **Mobile Landscape & Orientation Locking:**
+  - Implemented an embedded Web App Manifest configured with `"orientation": "landscape"` and `"display": "standalone"` to force horizontal orientation when launched from the home screen.
+  - Added a one-tap fullscreen and `screen.orientation.lock()` routine to automatically transition mobile browsers into landscape mode even with system portrait lock active.
+  - Designed an adaptive portrait orientation alert overlay with auto-rotation guidance.
+- **Hardware-Level Device Detection:**
+  - Replaced brittle CSS screen-width media queries with unified hardware pointer detection (`pointer: coarse`, `navigator.maxTouchPoints`, and touch-capability testing) to prevent wide horizontal mobile screens from incorrectly triggering desktop views.
+  - Added a manual header override button allowing instant toggling between mobile and desktop layouts.
+- **Ergonomic Control Layout Adjustments:**
+  - **Steering Mode:** Anchored the virtual steering wheel to the left thumb area while stacking both pedals on the right.
+  - **Tilt Mode:** Configured dynamic DOM state changes that automatically remove the wheel and position the Brake pedal on the far left and the Accelerate pedal on the far right.
+  - **Asymmetric Pedal Sizing:** Rescaled the Accelerate pedal to 175px height for fine throttle graduation, while keeping the Brake pedal distinctly shorter and wider at 120px.
+  - **Steering Throw:** Expanded virtual wheel rotation limits from $\pm 80^\circ$ to $\pm 150^\circ$ ($300^\circ$ total sweep) to improve turning precision.
+- **Desktop Input & Slider Shielding:**
+  - Expanded desktop keyboard listeners to seamlessly map Arrow keys and Numpad keys (8, 4, 6, 2, 5) regardless of NumLock state.
+  - Fixed speed limiter focus hijacking by implementing automatic element blurring (`blur()`) and `preventDefault()` keyboard shields, preventing driving arrow keys from accidentally adjusting the power slider percentage.
+
+### Progress Photo
+![Landscape Controller UI](## Entry 4 - Landscape UI Architecture, Input Expansion & Mobile Optimization (3h 30m)
+
+**Time spent:** 3 hours 30 mins
+
+### Work Done
+- **Mobile Landscape & Orientation Locking:**
+  - Implemented an embedded Web App Manifest configured with `"orientation": "landscape"` and `"display": "standalone"` to force horizontal orientation when launched from the home screen.
+  - Added a one-tap fullscreen and `screen.orientation.lock()` routine to automatically transition mobile browsers into landscape mode even with system portrait lock active.
+  - Designed an adaptive portrait orientation alert overlay with auto-rotation guidance.
+- **Hardware-Level Device Detection:**
+  - Replaced brittle CSS screen-width media queries with unified hardware pointer detection (`pointer: coarse`, `navigator.maxTouchPoints`, and touch-capability testing) to prevent wide horizontal mobile screens from incorrectly triggering desktop views.
+  - Added a manual header override button allowing instant toggling between mobile and desktop layouts.
+- **Ergonomic Control Layout Adjustments:**
+  - **Steering Mode:** Anchored the virtual steering wheel to the left thumb area while stacking both pedals on the right.
+  - **Tilt Mode:** Configured dynamic DOM state changes that automatically remove the wheel and position the Brake pedal on the far left and the Accelerate pedal on the far right.
+  - **Asymmetric Pedal Sizing:** Rescaled the Accelerate pedal to 175px height for fine throttle graduation, while keeping the Brake pedal distinctly shorter and wider at 120px.
+  - **Steering Throw:** Expanded virtual wheel rotation limits from $\pm 80^\circ$ to $\pm 150^\circ$ ($300^\circ$ total sweep) to improve turning precision.
+- **Desktop Input & Slider Shielding:**
+  - Expanded desktop keyboard listeners to seamlessly map Arrow keys and Numpad keys (8, 4, 6, 2, 5) regardless of NumLock state.
+  - Fixed speed limiter focus hijacking by implementing automatic element blurring (`blur()`) and `preventDefault()` keyboard shields, preventing driving arrow keys from accidentally adjusting the power slider percentage.
+
+### Progress Photo
+![Landscape Controller UI](<img width="1442" height="506" alt="image" src="https://github.com/user-attachments/assets/e34366be-5f77-46f0-8101-16e0bc4b2b28" />
+<img width="1917" height="926" alt="image" src="https://github.com/user-attachments/assets/ff758122-bca1-4c7f-b606-287299af4af5" />
+)
 
