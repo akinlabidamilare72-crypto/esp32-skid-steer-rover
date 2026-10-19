@@ -107,4 +107,30 @@ Designed the physical layout showing board spacing, 3mm laser-cut plywood chassi
 ![Landscape Controller UI](<img width="1442" height="506" alt="image" src="https://github.com/user-attachments/assets/e34366be-5f77-46f0-8101-16e0bc4b2b28" />
 <img width="1917" height="926" alt="image" src="https://github.com/user-attachments/assets/ff758122-bca1-4c7f-b606-287299af4af5" />
 )
+## Entry 6 - Dual-Driver Architecture & 4-Wheel Torque Vectoring (3h 00m)
+
+**Time spent:** 3 hours
+
+### Work Done
+- **Drivetrain Architecture Upgrade:**
+  - Upgraded drivetrain topology from a 2-channel paired skid-steer layout to a true **4-channel independent all-wheel-drive (AWD)** system using dual L298N H-bridge motor drivers.
+  - Eliminated parallel-wired motor pairs so each TT gearbox receives dedicated current without thermal overload or cross-motor back-EMF interference.
+- **Microcontroller Pin & PWM Expansion:**
+  - Expanded ESP32 GPIO allocation to 8 dedicated output pins:
+    - Front Axle (Driver 1): `FL_IN1` (GPIO 25), `FL_IN2` (GPIO 26), `FR_IN3` (GPIO 27), `FR_IN4` (GPIO 14)
+    - Rear Axle (Driver 2): `RL_IN1` (GPIO 16), `RL_IN2` (GPIO 17), `RR_IN3` (GPIO 18), `RR_IN4` (GPIO 19)
+  - Configured 8 independent ESP32 LEDC hardware PWM timer channels operating at 1 kHz with 8-bit resolution (0–255 duty cycle) to provide silent, continuous torque control.
+- **4-Corner Electronic Differential & Torque Vectoring:**
+  - Implemented real-time proportional differential math that calculates wheel velocity curves for each corner independently during turns:
+    - Front-outside wheel runs at maximum commanded speed ($100\%$).
+    - Rear-outside wheel tracks tightly behind at $85\%$ speed.
+    - Front-inside wheel crawls through the inner radius at $30\%$ speed.
+    - Rear-inside wheel pivots at the apex at $15\%$ speed to completely eliminate tire scrubbing.
+  - Preserved standstill zero-radius counter-rotation for sharp 360° spins.
+  - Applied 4-channel synchronized soft-start ramping (`RAMP_STEP`) to protect the 7.4V battery pack from sudden inrush current spikes.
+- **Power Delivery Finalization:**
+  - Confirmed 2S series architecture (7.4V nominal) using existing 1200mAh 18650 cells in a hot-swap configuration, keeping the rover lightweight and agile while avoiding excessive weight or gear wear.
+
+### Progress Photo
+![Dual Driver Firmware Update](<img width="442" height="392" alt="image" src="https://github.com/user-attachments/assets/3955c97f-0e7e-4b45-bd72-3630ffc47afa" />
 
