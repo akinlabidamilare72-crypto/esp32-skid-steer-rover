@@ -26,7 +26,8 @@
 
 ### Simulation Screenshot<img width="1200" height="896" alt="rover_prototype_render_1792144856178" src="https://github.com/user-attachments/assets/663ae476-8126-4e1e-9af7-e7ab5e48a88d" />
 
-![Wokwi ESP32 Circuit Simulation](simulation.png)
+![Wokwi ESP32 Circuit Simulation](simulation.png<img width="471" height="527" alt="Screenshot 2026-10-16 062113" src="https://github.com/user-attachments/assets/2c5ff5c3-d797-4138-95cc-10167df7ad09" />
+)
 ## Entry 3 - Wokwi Simulation Wiring and Pin Validation (2h 00m)
 
 **Time spent:** 3 hours
