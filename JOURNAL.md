@@ -134,4 +134,43 @@ Designed the physical layout showing board spacing, 3mm laser-cut plywood chassi
 
 ### Progress Photo
 ![Dual Driver Firmware Update](<img width="442" height="392" alt="image" src="https://github.com/user-attachments/assets/3955c97f-0e7e-4b45-bd72-3630ffc47afa" />
+## Entry 7 - Power Architecture Audit, Cell Matching & Chassis Sizing (2h 30m)
 
+**Time spent:** 2 hours 30 mins
+
+### Work Done
+- **Lithium-Ion Inventory & Cell Matching:**
+  - Audited the available 18650 cell stock: identified two 1200mAh cells, two 1500mAh cells, and one unmarked spare cell.
+  - Investigated discharge behavior: determined why small direct-drive DC motors tolerated AAA cells (high internal resistance causing natural voltage sag under load) while lithium-ion cells dumped high, unrestricted current.
+  - Implemented cell-balancing safety rules: organized the batteries into two dedicated, capacity-matched 2S packs (2x 1200mAh and 2x 1500mAh) to prevent cell reversal during series discharge. The mystery cell was permanently isolated for standalone 1-cell bench testing.
+- **Physical Chassis Stock & Turning Geometry:**
+  - Acquired a 47 cm x 18 cm piece of birch plywood for the main chassis platform.
+  - Calculated skid-steer mechanical geometry: determined that mounting wheels to the full 47 cm length would create an overly long wheelbase, resulting in excessive lateral tire scrubbing that would stall TT gearmotors during zero-radius turns.
+  - Marked cutting dimensions to trim the board down to 20 cm x 15 cm, maintaining an optimal ~1.2:1 wheelbase-to-track width ratio for responsive pivoting.
+- **System Architecture Audit & Budget Optimization:**
+  - Evaluated external design feedback and de-scoped unnecessary subsystems (such as complex optical wheel encoders and auxiliary power distribution boards) to preserve software reliability and minimize points of failure.
+  - Decided to utilize the LM2596 buck converter's onboard LED display to monitor raw battery voltage at a glance, removing the need for a separate analog resistor divider.
+  - Optimized the procurement cart to protect a $20+ reserve for the Hack Club Forge shop soldering kit.
+
+### Progress Photo
+![Chassis Stock and Battery Inventory](## Entry 7 - Power Architecture Audit, Cell Matching & Chassis Sizing (2h 30m)
+
+**Time spent:** 2 hours 30 mins
+
+### Work Done
+- **Lithium-Ion Inventory & Cell Matching:**
+  - Audited the available 18650 cell stock: identified two 1200mAh cells, two 1500mAh cells, and one unmarked spare cell.
+  - Investigated discharge behavior: determined why small direct-drive DC motors tolerated AAA cells (high internal resistance causing natural voltage sag under load) while lithium-ion cells dumped high, unrestricted current.
+  - Implemented cell-balancing safety rules: organized the batteries into two dedicated, capacity-matched 2S packs (2x 1200mAh and 2x 1500mAh) to prevent cell reversal during series discharge. The mystery cell was permanently isolated for standalone 1-cell bench testing.
+- **Physical Chassis Stock & Turning Geometry:**
+  - Acquired a 47 cm x 18 cm piece of birch plywood for the main chassis platform.
+  - Calculated skid-steer mechanical geometry: determined that mounting wheels to the full 47 cm length would create an overly long wheelbase, resulting in excessive lateral tire scrubbing that would stall TT gearmotors during zero-radius turns.
+  - Marked cutting dimensions to trim the board down to 20 cm x 15 cm, maintaining an optimal ~1.2:1 wheelbase-to-track width ratio for responsive pivoting.
+- **System Architecture Audit & Budget Optimization:**
+  - Evaluated external design feedback and de-scoped unnecessary subsystems (such as complex optical wheel encoders and auxiliary power distribution boards) to preserve software reliability and minimize points of failure.
+  - Decided to utilize the LM2596 buck converter's onboard LED display to monitor raw battery voltage at a glance, removing the need for a separate analog resistor divider.
+  - Optimized the procurement cart to protect a $20+ reserve for the Hack Club Forge shop soldering kit.
+
+### Progress Photo
+![Chassis Stock](<img width="877" height="722" alt="image" src="https://github.com/user-attachments/assets/9dd76718-5dcb-4bea-9c29-daf3c332a5b0" />
+)
