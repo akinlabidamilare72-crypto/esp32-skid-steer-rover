@@ -174,3 +174,24 @@ Designed the physical layout showing board spacing, 3mm laser-cut plywood chassi
 ### Progress Photo
 ![Chassis Stock](<img width="877" height="722" alt="image" src="https://github.com/user-attachments/assets/9dd76718-5dcb-4bea-9c29-daf3c332a5b0" />
 )
+## Entry 8 - Dynamic Electromagnetic Braking, EPB & Slider Debugging (2h 00m)
+
+**Time spent:** 2 hours
+
+### Work Done
+- **Dynamic Electromagnetic Braking:**
+  - Implemented an active dynamic braking routine (`applyDynamicBrake()`) across both L298N drivers by commanding 100% PWM duty cycle (`255`) to both forward and reverse channels simultaneously.
+  - Utilized motor back-EMF to create an electromagnetic clamp across all four wheel terminals, preventing the vehicle from creeping on slopes or inclines.
+- **Electronic Parking Brake (EPB) Integration:**
+  - Added a latching parking brake state toggled by the **`P`** key on desktop and a dedicated **`🅿️ PARK`** header button on mobile.
+  - Integrated visual feedback (red glowing indicators) and programmed an accelerator safety lockout that overrides the throttle while the parking brake is engaged.
+- **UI Event Listener & Speed Limiter Fixes:**
+  - Diagnosed and resolved mobile browser rendering glitches where C++ `#include` headers appeared as raw text during local preview.
+  - Fixed an event listener conflict on the desktop speed limiter: removed the aggressive `keydown` focus blur that was resetting the slider when holding down the **`W`** drive key, enabling seamless on-the-fly speed adjustments while moving.
+- **Single-Binary Firmware Architecture:**
+  - Consolidated the entire web application (HTML5, responsive CSS, PointerEvents JavaScript, and WebSockets client) into a single `PROGMEM` string within `rover_web_controller.ino`.
+  - Confirmed compilation integrity in Arduino IDE, ensuring the physical ESP32 handles Wi-Fi access point broadcast, HTTP delivery, and real-time motor control from a single uploaded sketch.
+
+### Progress Photo
+![EPB and Slider Fix](<img width="1297" height="461" alt="image" src="https://github.com/user-attachments/assets/73c31953-c6ef-404e-9016-182151f7ca84" />
+)
