@@ -23,26 +23,28 @@ The vehicle hardware, diagnostic tools, and assembly supplies are budgeted under
 
 | Component / Item | Qty | Price (USD) | Function & Role |
 | :--- | :--- | :--- | :--- |
-| **ESP32 NodeMCU Dev Board** | 1 | $4.20 | Core processor, SoftAP web server, 8-channel LEDC PWM |
-| **L298N Dual H-Bridge Drivers** | 2 | $4.50 | High-current motor power stages with heatsinks (Front & Rear axles) |
-| **LM2596 DC-DC Buck Converter** | 1 | $2.10 | Steps 7.4V battery pack down to regulated 5.00V for logic rail |
-| **Yellow TT DC Gearmotors (1:48)** | 4 | $6.20 | 3V–6V geared drive motors providing high low-end torque |
+| **ESP32 NodeMCU Dev Board** | 1 | $4.20 | Dual-core processor, SoftAP web server, 8-channel LEDC PWM |
+| **L298N Dual H-Bridge Drivers** | 2 | $4.50 | High-current motor drivers (Front and Rear axles) |
+| **LM2596 DC-DC Buck Converter** | 1 | $2.10 | Steps 7.4V battery pack down to regulated 5.00V for ESP32 logic rail |
+| **Yellow TT DC Gearmotors (1:48)** | 4 | $6.20 | 3V–6V geared motors providing high low-end torque |
 | **65mm All-Terrain Robot Wheels** | 4 | *(bundled)* | Knobby rubber tires with yellow 5-spoke D-shaft hubs |
-| **2-Slot 18650 Battery Holder** | 1 | $0.90 | Series-wired battery sled providing 7.4V nominal output |
-| **SPST Power Rocker Switch** | 1 | $0.80 | Master physical disconnect on positive battery rail |
-| **Dupont Ribbon Jumper Wires (120pcs)**| 1 set | $4.26 | 20cm Female-to-Female, Male-to-Female interconnects |
+| **2-Slot 18650 Battery Holder** | 1 | $0.90 | Series-wired cell holder providing 7.4V nominal output |
+| **SPST Power Rocker Switch** | 1 | $0.80 | Master physical disconnect on the positive battery line |
+| **Dupont Ribbon Jumper Wires (120pcs)**| 1 set | $4.26 | 20cm Female-to-Female and Male-to-Female logic lines |
 | **M3 Nylon Standoffs (50pcs)** | 1 pack | $2.51 | Insulated air-gap spacers to mount PCBs off the chassis |
 | **Metric Bolt Assortment (M2/M3/M4)** | 1 box | $5.62 | Machine screws & nuts to anchor standoffs through 3mm plywood |
-| **Replacement 5V USB Soldering Tips** | 3 pcs | $4.85 | Restores portable USB soldering iron for bench assembly |
+| **80W Digital Soldering Iron Kit** | 1 kit | $12.95 | 220V EU digital iron, stand, solder wire, 5x 900M tips, tweezers |
 | **Plato 170 Flush Wire Cutters** | 1 | $1.85 | Clean trimming of wires, component leads, and zip-ties |
-| **Mini 20W Hot Melt Glue Gun + Sticks**| 1 kit | $3.80 | Structural mounting for motor brackets and harness routing |
+| **Mini 20W Hot Melt Glue Gun + Sticks**| 1 kit | $3.80 | Structural mounting for motor brackets and wire harnessing |
 | **Rosin Paste Soldering Flux** | 1 tub | $2.00 | Non-corrosive chemical deoxidizer for motor lug solder joints |
 | **ANENG Digital Multimeter** | 1 | $6.80 | Verifies buck converter voltage tuning and continuity |
-| **Consolidated International Freight** | 1 | $17.68 | Consolidated courier shipping to Lagos, Nigeria[cite: 32] |
-| **Item Subtotal** | | **$62.08** | *(Reflects platform discounts applied)*[cite: 32] |
-| **Grand Total (Order Checkout)** | | **$79.76** | **Fully funded by approved Forge Grant ($17+ reserve)**[cite: 30, 32] |
+| **Consolidated International Freight** | 1 | $19.72 | Consolidated shipping to Lagos, Nigeria |
+| **Items Discount Applied** | | -$10.00 | Platform Choice order discount |
+| **Grand Total (Order Checkout)** | | **$88.21** | **Fully covered by approved Forge Grant ($97.50+ limit)** |
 
-*Note: Sourced on-hand stock includes a 47 cm x 18 cm birch plywood plate (trimmed to 200 mm x 150 mm) and five 3.7V 18650 lithium-ion cells organized into matched 2S packs (Pack A: 2x 1200mAh, Pack B: 2x 1500mAh).*
+*On-hand materials: 47 cm x 18 cm birch plywood plate (trimmed to 200 mm x 150 mm) and five 3.7V 18650 lithium-ion cells organized into matched 2S packs (Pack A: 2x 1200mAh, Pack B: 2x 1500mAh).*
+
+---
 
 ---
 
