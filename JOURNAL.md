@@ -195,3 +195,18 @@ Designed the physical layout showing board spacing, 3mm laser-cut plywood chassi
 ### Progress Photo
 ![EPB and Slider Fix](<img width="1297" height="461" alt="image" src="https://github.com/user-attachments/assets/73c31953-c6ef-404e-9016-182151f7ca84" />
 )
+- **Dynamic Electromagnetic Braking & EPB:**
+  - Implemented an active dynamic braking routine (`applyDynamicBrake()`) across both L298N drivers by commanding 100% PWM duty cycle (`255`) to both forward and reverse channels simultaneously, shorting motor terminals to harness back-EMF and prevent slope creep.
+  - Added a latching Electronic Parking Brake (EPB) toggled by the **`P`** key on desktop and a dedicated **`🅿️ PARK`** header button on mobile, complete with visual glowing states and an accelerator lockout safety override.
+- **UI Event Listener & Speed Limiter Shielding:**
+  - Resolved mobile browser rendering bugs where C++ headers leaked into local preview files by isolating clean HTML/JS assets.
+  - Fixed an event listener conflict on the desktop speed limiter: shielded the slider from continuous `keydown` focus blur events so speed limits can be smoothly adjusted while actively holding drive keys (`W/A/S/D`).
+- **ESP32 GPIO Hardware Pinout Audit:**
+  - Conducted a deep architectural review of the 8 motor logic pins:
+    - Dedicated glitch-free digital outputs: Front Axle on GPIO 25, 26, 27, 14; Rear Axle on GPIO 16, 17, 18, 19.
+    - Specifically avoided input-only pins (GPIO 34, 35, 36, 39) which lack internal output driving transistors.
+    - Avoided critical boot-strapping pins (GPIO 0, 2, 12, 15) to ensure motor driver impedance does not pull pins low at startup and lock the ESP32 out of flash execution mode.
+- **Toolchain Consolidation & BOM Synchronization:**
+  - Streamlined the assembly toolchain: replaced scattered soldering accessories with a comprehensive 80W digital LCD thermostatic soldering iron kit (220V-240V EU Type C plug) containing a metal stand, cleaning sponge, solder wire, tweezers, and 5x 900M tips.
+  - Locked final procurement cart at **$88.21**, fully funded within the approved Forge Tier 3 grant balance with surplus reserved for local battery procurement.
+  - Completely updated `README.md` to reflect the 8-channel pinout schematic, dynamic torque vectoring equations, and finalized procurement table.
