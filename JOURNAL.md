@@ -11,7 +11,8 @@
 - Outlined dual-channel skid-steering control scheme using an L298N driver.
 
 ### Hardware Photo
-![Motors](motors.jpg)
+![Motors](<img width="1728" height="3072" alt="IMG_20261015_064420_024@1935144976" src="https://github.com/user-attachments/assets/6304c2b7-0505-4603-b50c-59e28f993a79" />
+)
 ## Entry 2 - Firmware Simulation and Differential Logic (3h 00m)
 
 **Time spent:** 3 hours
