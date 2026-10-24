@@ -43,7 +43,7 @@ The rover uses a two-tier chassis constructed from 4 mm birch plywood:
 
 A complete, itemized spreadsheet is available in [`bom.csv`](bom.csv).
 
-* **Total Project Cost:** $88.21 USD (including toolkit and spare hardware).
+* **Total Project Cost:** $75.00 USD (including toolkit and spare hardware).
 
 ---
 
