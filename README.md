@@ -44,7 +44,7 @@ All system grounds are tied together to a common star-ground terminal block to e
 
 A complete, itemized spreadsheet is available in [`bom.csv`](bom.csv).
 
- Total Project Cost: $75.00 USD (including toolkit and no spear hardware).
+ Total Project Cost: $68.09 USD (including toolkit and no spear hardware).
 
 ---
 
