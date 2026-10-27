@@ -1,7 +1,7 @@
 # ESP32 4WD Skid-Steer Rover (V1)
 
 An open-hardware, Wi-Fi teleoperated rover designed with a custom dual-tier chassis, bare-metal ESP32 differential drive firmware, and an offline local WebSockets controller.
-![Chassis Assembly CAD Render]<img width="1200" height="896" alt="rover_prototype_render_1792144856178" src="https://github.com/user-attachments/assets/aa842943-a18c-4fe0-a8b0-45b7de8c2606" />
+[Chassis Assembly CAD Render]<img width="1200" height="896" alt="rover_prototype_render_1792144856178" src="https://github.com/user-attachments/assets/aa842943-a18c-4fe0-a8b0-45b7de8c2606" />
 <img width="1728" height="3072" alt="IMG_20261015_064420_024@1935144976" src="https://github.com/user-attachments/assets/2805a685-aa5f-4020-b0da-e2bae42692f0" />
 ---
 
@@ -25,17 +25,18 @@ Living in Lagos, Nigeria, access to standardized robotics kits and reliable high
 ## 2. Hardware Architecture & Mounting
 
 The rover uses a two-tier chassis constructed from 4 mm birch plywood:
-* **Lower Deck:** Houses four 6V DC TT gearmotors secured with M3x30 mm steel bolts through slotted motor brackets, driving four 65 mm high-traction rubber wheels.
-* **Electronics Deck:** Raised 35 mm above the drivetrain via brass M3 standoffs. The ESP32 NodeMCU, dual L298N H-bridge motor drivers, and an LM2596 buck converter are mounted with M2.5 and M3 pan-head machine screws into pre-drilled chassis mounting patterns—no tape or hot glue.
-* **Power Distribution:** A 2S 18650 Li-ion battery pack feeds into an LM2596 switching buck converter adjusted to a clean 5.1V logic rail, while routing high-current lines directly to the motor driver inputs with a shared star-ground topology to eliminate brownouts.
+Lower Deck:** Houses four 6V DC TT gearmotors secured with M3x30 mm steel bolts through slotted motor brackets, driving four 65 mm high-traction rubber wheels.
+  Electronics Deck:** Raised 35 mm above the drivetrain via brass M3 standoffs. The ESP32 NodeMCU, dual L298N H-bridge motor drivers, and an LM2596 buck converter are mounted with M2.5 and M3 pan-head machine screws into pre-drilled chassis mounting patterns—no tape or hot glue.
+Power Distribution:** A 2S 18650 Li-ion battery pack feeds into an LM2596 switching buck converter adjusted to a clean 5.1V logic rail, while routing high-current lines directly to the motor driver inputs with a shared star-ground topology to eliminate brownouts.
 
 ---
 
 ## 3. Wiring Diagram
 
-![Wiring Diagram](docs/wiring_diagram.png)
+![Wiring Diagram](<img width="856" height="728" alt="image" src="https://github.com/user-attachments/assets/8609f9f0-27fb-458a-9965-19c8be105dcd" />
+)
 
-*All system grounds are tied together to a common star-ground terminal block to eliminate signal reference drift between logic PWM and motor inductive switching.*
+All system grounds are tied together to a common star-ground terminal block to eliminate signal reference drift between logic PWM and motor inductive switching.*
 
 ---
 
@@ -43,11 +44,11 @@ The rover uses a two-tier chassis constructed from 4 mm birch plywood:
 
 A complete, itemized spreadsheet is available in [`bom.csv`](bom.csv).
 
-* **Total Project Cost:** $75.00 USD (including toolkit and spare hardware).
+ Total Project Cost: $75.00 USD (including toolkit and no spear hardware).
 
 ---
 
 ## 5. Build Progress & Demonstration
 
 * Comprehensive design decisions, calculations, and problem-solving logs are documented in [`JOURNAL.md`](JOURNAL.md).
-* **Demo Video:** *[Link to demo video will be added upon unboxing and hardware assembly]*
+* **Demo Video: [Link to demo video will be added upon unboxing and hardware assembly]*
