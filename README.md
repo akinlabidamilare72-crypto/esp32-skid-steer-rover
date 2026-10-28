@@ -33,7 +33,26 @@ All system grounds are tied together to a common star-ground terminal block to e
 
  Bill of Materials (BOM)
 
-
+the full spreadsheet with links is in (bom.csv)
+| Item | Description / Variant | Qty | Unit Price (USD) | Total Price (USD) |
+| :--- | :--- | :---: | :---: | :---: |
+| 80W Digital Soldering Iron Kit | Thermostatic LCD Soldering Iron (Black Set 2 / 220V EU Plug) | 1 | $12.96 | $12.96 |
+| Replacement Soldering Iron Tips | Mix-3 PCS Soldering Tips | 1 | $4.86 | $4.86 |
+| M3 Nylon Standoff Kit | 50pcs M3x10mm Hexagonal Spacers | 1 | $2.51 | $2.51 |
+| Metric Bolt & Nut Assortment | 420pcs M2/M3/M4 Fastener Set (420PCSM2) | 1 | $5.63 | $5.63 |
+| 40-Pin DuPont Jumper Wire Kit | 120pcs 20cm Male-to-Male / Male-to-Female / Female-to-Female | 1 | $4.27 | $4.27 |
+| PLATO 170 Diagonal Wire Cutters | Electronic Flush Side Cutting Nippers | 1 | $2.35 | $2.35 |
+| ANENG SZ308 Digital Multimeter | Square Wave Tester 1999 Counts with Transistor/Buzzer (Red) | 1 | $5.86 | $5.86 |
+| KCD11 SPST Mini Rocker Switches | 2-Pin 10x15mm Power Switches (5pcs) | 1 | $1.92 | $1.92 |
+| 18650 Battery USB Charger | 2-Slot Dual Lithium USB Charger (1pc) | 1 | $2.36 | $2.36 |
+| 18650 Battery Holder | 2-Slot 2S Series Battery Storage Case with Leads | 1 | $1.08 | $1.08 |
+| LM2596 DC-DC Buck Converter | Step-Down Regulator with Onboard LED Voltmeter Display | 1 | $1.83 | $1.83 |
+| L298N Dual H-Bridge Motor Driver | Dual Motor Controller Board for DC Motors | 2 | $2.00 | $4.00 |
+| ESP32 DevKit Development Board | ESP32 Type-C USB (CH340C Dual Core Wi-Fi + BLE) | 1 | $3.93 | $3.93 |
+| TT Gearmotors & 65mm Wheels | 2 lots (4x Yellow TT Motors + 4x Rubber Wheels) | 2 | $1.12 | $2.24 |
+| Rosin Soldering Flux Paste | 10g Plastic Box Lead-Free No-Clean Solder Rosin (2pcs) | 1 | $1.46 | $1.46 |
+| Consolidated Shipping | AliExpress Standard Shipping to Lagos Nigeria | 1 | $10.83 | $10.83 |
+| **TOTAL** | | | | **$68.09** |
 
  Total Project Cost: $68.09 USD (including toolkit and no spear hardware).
 
