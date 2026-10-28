@@ -48,6 +48,7 @@ Rosin Soldering Flux Paste, 10g Plastic Box Lead-Free No-Clean Solder Rosin (2pc
 Consolidated Shipping, AliExpress Standard Shipping to Lagos Nigeria, 1, 10.83, 10.83, ---
 TOTAL,,, 68.09, 68.09,
 
+its more arranged in Bom.cvs 
 
  Total Project Cost: $68.09 USD (including toolkit and no spear hardware).
 
