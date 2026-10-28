@@ -54,6 +54,7 @@ this was the most annoying part because I didn't know how to code and all the ui
 **Time spent:** 3 hours 30 mins
 
 so basicly the ai's code was bad and I had to fix it somehow firstly I had to change the interaction for the tilt mode cause the wheel just dissapaired and the pedals are still on the tight side of the screen like outcasts I needed the interface to move the pedals(break and accelerate) to the left and right sides of the screen when on tilt mode the code also couldn't accurately detect if it was a mobile or pc that was giving it inputs so I added a toggle switch for people to use in case it was wrong I also implemented a tilt mode for mobile for it to feel familiar to bus or car simulation players cause this interface was inspired by a truck driving simulation game, I added that the code should be able to accept numpad keys for users that have numpads on their pc's I re-scaled the accelerate and break buttons to be significantly different in size for easy recognition and finally fixed the issue of the arrow button increasing the speed limiter
+<img width="950" height="522" alt="Screenshot 2026-10-17 065906" src="https://github.com/user-attachments/assets/3411fd84-f65f-420e-a611-a8b310b25d3b" />
 
 
 ## Entry 6 - Dual-Driver Architecture & 4-Wheel Torque Vectoring (3h 00m)
