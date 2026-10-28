@@ -13,8 +13,8 @@
 so I have small DC motors just laying in my shelve and I decided to stop making them collect dust on my shelve and do something for once but they couldn't handle 3.7v from the 18650 batteries, so I started my research and discovered that I could use a buck converter to step down the voltage and I had an idea for a 4WD rover a long time ago I just didn't have the materials or anything in mind for how to make it. 
 but with a little more research I found some parts that could work like the L298N motor driver and TT motors.
 ### Hardware Photo
-![Motors](<img width="1728" height="3072" alt="IMG_20261015_064420_024@1935144976" src="https://github.com/user-attachments/assets/6304c2b7-0505-4603-b50c-59e28f993a79" />
-)
+![Motors] <img width="1728" height="3072" alt="IMG_20261015_064420_024@1935144976" src="https://github.com/user-attachments/assets/19ce0f26-403b-40a2-97a2-ecbc0941e8bb" />
+
 ## Entry 2 - Firmware Simulation and Differential Logic (3h 00m)
 
 **Time spent:** 3 hours
@@ -42,10 +42,9 @@ so I decoded to test if the wiring will work before I choose the parts I'll use 
 I finally tested the code and saw that the joystick wasn't giving any output (I'm moving the joystick but the led's aren't indicating that I am but I later found out that I also connected it to the wrong gnd pin
 ### Simulation Photo
 ![Simulation Testing](simulation.png)
-### Prototype Chassis & Layout Render
-Designed the physical layout showing board spacing, 3mm laser-cut plywood chassis, motor offsets, and wiring routes:
+### Prototype Chassis
+physical layout showing board spacing, 3mm laser-cut plywood chassis, motor offsets, and wiring routes
 
-![3D Chassis and Electronics Layout](![Uploading rover_prototype_render_1792144856178.jpg…]()
 )
 ## Entry 4 - Full-Stack Web Controller UI & WebSocket Firmware (3h 00m)
 
