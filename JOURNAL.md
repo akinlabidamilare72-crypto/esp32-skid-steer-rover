@@ -158,7 +158,7 @@ so I decided to use the old batteries I had at home to power the rover to cut co
 
 
 ### Progress Photo
-![Chassis Stock](<img width="877" height="722" alt="image" src="https://github.com/user-attachments/assets/9dd76718-5dcb-4bea-9c29-daf3c332a5b0" />
+(<img width="877" height="722" alt="image" src="https://github.com/user-attachments/assets/9dd76718-5dcb-4bea-9c29-daf3c332a5b0" />
 )
 ## Entry 8 - Dynamic Electromagnetic Braking, EPB & Slider Debugging (2h 00m)
 
@@ -179,7 +179,7 @@ so I decided to use the old batteries I had at home to power the rover to cut co
   - Confirmed compilation integrity in Arduino IDE, ensuring the physical ESP32 handles Wi-Fi access point broadcast, HTTP delivery, and real-time motor control from a single uploaded sketch.
 
 ### Progress Photo
-![EPB and Slider Fix](<img width="1297" height="461" alt="image" src="https://github.com/user-attachments/assets/73c31953-c6ef-404e-9016-182151f7ca84" />
+(<img width="1297" height="461" alt="image" src="https://github.com/user-attachments/assets/73c31953-c6ef-404e-9016-182151f7ca84" />
 )
 - **Dynamic Electromagnetic Braking & EPB:**
   - Implemented an active dynamic braking routine (`applyDynamicBrake()`) across both L298N drivers by commanding 100% PWM duty cycle (`255`) to both forward and reverse channels simultaneously, shorting motor terminals to harness back-EMF and prevent slope creep.
