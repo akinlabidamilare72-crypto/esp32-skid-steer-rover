@@ -60,7 +60,7 @@ its more arranged in Bom.cvs
  Build Progress & Demonstration
 
 Comprehensive design decisions, calculations, and problem-solving logs are documented in [`JOURNAL.md`](JOURNAL.md).
-  Demo Video: [Link to demo video will be added upon unboxing and hardware assembly]
+  build photo: [build photo will be uploaded upon completion of build]
 
  I am using a plywood cutout for the base so it will be easy to drill holes on the chassis I have already cut out its ~20×15cm (I didn't have a saw so I had to use a knife so it wasn't accurate and it had some parts of its layers sticking out so i glued them back together
 for the wheels I am using the 65mm wheels that comes with the 1:47 tt motor sets
