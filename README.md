@@ -6,6 +6,10 @@ An open-hardware, Wi-Fi teleoperated rover designed, bare-metal ESP32, and an of
 Project Overview
 it's an ESP32 controlled rover with two motor drivers controlling 4 motors with skid steering (like a tank) its powered by a 2s 18560 lithium battery  
 
+no custom pcb was used in this project every component was an off the shelve breakout module the firmware source code is committed and can be found in ['firmware/rover_web_controller"]
+3D blender model <img width="772" height="385" alt="image" src="https://github.com/user-attachments/assets/aeb38a31-c80b-4bc1-977d-a2d8c5553fb8" />
+abd the bill of material is in this file and ['bom.cvs']
+
 
 Why did I make it?
 two reasons actually first was to remove my Ideas from the drawing board and second was because I love building things that would amaze my friends and people that would see it plus it would be cool to talk about it and how I built it plus where I got my funding
@@ -61,3 +65,7 @@ Comprehensive design decisions, calculations, and problem-solving logs are docum
  I am using a plywood cutout for the base so it will be easy to drill holes on the chassis I have already cut out its ~20×15cm (I didn't have a saw so I had to use a knife so it wasn't accurate and it had some parts of its layers sticking out so i glued them back together
 for the wheels I am using the 65mm wheels that comes with the 1:47 tt motor sets
 <img width="1728" height="3072" alt="IMG_20261025_073826_334@409478815" src="https://github.com/user-attachments/assets/b622adb4-9d67-42fe-bda0-6be983005e71" /> this is the cut plywood with my batteries for reference and the batteries are 1200mAh and 1500mAh pairs thats why a battery isn't part of my bom
+
+reviewed by Emmanuel 
+2026-10-25 
+he said it was really cool and he'd like to see it built 
