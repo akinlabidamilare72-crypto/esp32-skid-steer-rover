@@ -154,11 +154,8 @@ because this was a skid steer car I had to make sure every wheel had its own ded
   - Optimized the procurement cart to protect a $20+ reserve for the Hack Club Forge shop soldering kit.
 so I decided to use the old batteries I had at home to power the rover to cut cost and I saw that the cells I had were 2 1200mAh, 2 !500mAh and 1 with an unknown capacity so I decided to use the ones with the same capacity to preserve the health of the cells
 ### Progress Photo
-![Chassis Stock and Battery Inventory] <img width="1278" height="2273" alt="IMG_20261025_073826_334" src="https://github.com/user-attachments/assets/1d88e5ef-206f-4387-9d67-f2f0c838484e" />
+<img width="1728" height="3072" alt="IMG_20261025_073826_334@409478815" src="https://github.com/user-attachments/assets/abaef9cd-67db-40e6-a2dc-2aaa096b6bd0" />
 
-
-### Progress Photo
-(<img width="877" height="722" alt="image" src="https://github.com/user-attachments/assets/9dd76718-5dcb-4bea-9c29-daf3c332a5b0" />
 )
 ## Entry 8 - Dynamic Electromagnetic Braking, EPB & Slider Debugging (2h 00m)
 
