@@ -31,7 +31,7 @@ from the battery pack the power is split across all the components first to the 
 All system grounds are tied together to a common star-ground terminal block to eliminate signal reference drift between logic PWM and motor inductive switching.
 
 
- Bill of Materials (BOM)
+ # Bill of Materials (BOM)
 
 the full spreadsheet with links is in (bom.csv)
 | Item | Description / Variant | Qty | Unit Price (USD) | Total Price (USD) |
