@@ -57,7 +57,7 @@ the full spreadsheet with links is in (bom.csv)
  Total Project Cost: $68.09 USD (including toolkit and no spear hardware).
 
 
- Build Progress & Demonstration
+# Build Progress & Demonstration
 
 Comprehensive design decisions, calculations, and problem-solving logs are documented in [`JOURNAL.md`](JOURNAL.md).
   build photo: [build photo will be uploaded upon completion of build]
