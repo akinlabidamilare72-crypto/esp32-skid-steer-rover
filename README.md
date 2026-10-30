@@ -1,4 +1,4 @@
- ESP32 4WD Skid-Steer Rover (V1)
+# **ESP32 4WD Skid-Steer Rover** (V1)
 
 An open-hardware, Wi-Fi teleoperated rover designed, bare-metal ESP32, and an offline local WebSockets controller.
 [Chassis Assembly CAD Render]<img width="817" height="342" alt="Screenshot 2026-10-25 051615" src="https://github.com/user-attachments/assets/00974642-a6b5-4b1a-9d46-ad7c44334fe0" />
