@@ -1,4 +1,3 @@
-<img width="1728" height="3072" alt="IMG_20261015_064420_024@1935144976" src="https://github.com/user-attachments/assets/adc9bc22-07ae-421f-b4fb-dff54321af03" />
 # Build Journal
 
 ## Entry 1 - Planning and Motor Testing (2h 00m)
