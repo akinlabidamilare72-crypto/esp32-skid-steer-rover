@@ -25,7 +25,8 @@ from the battery pack the power is split across all the components first to the 
 
 # Wiring Diagram
 
-![Wiring Diagram](<img width="856" height="728" alt="image" src="https://github.com/user-attachments/assets/a3bbf3f7-d296-4dc3-a646-c70377d9ba20" />
+![Wiring Diagram]<img width="3000" height="1965" alt="circuit_image" src="https://github.com/user-attachments/assets/735422f3-a965-43e4-9fce-bfdbafe76946" />
+
 
 
 All system grounds are tied together to a common star-ground terminal block to eliminate signal reference drift between logic PWM and motor inductive switching.
