@@ -13,7 +13,7 @@ I Tested small DC motors I had lying around with 3.7V lithium cells in series, I
 so I have small DC motors just laying in my shelve and I decided to stop making them collect dust on my shelve and do something for once but they couldn't handle 3.7v from the 18650 batteries, so I started my research and discovered that I could use a buck converter to step down the voltage and I had an idea for a 4WD rover a long time ago I just didn't have the materials or anything in mind for how to make it. 
 but with a little more research I found some parts that could work like the L298N motor driver and TT motors.
 ### Hardware Photo
-![Motors] <img width="1728" height="3072" alt="IMG_20261015_064420_024@1935144976" src="https://github.com/user-attachments/assets/19ce0f26-403b-40a2-97a2-ecbc0941e8bb" />
+<img width="1728" height="3072" alt="IMG_20261015_064420_024@1935144976" src="https://github.com/user-attachments/assets/19ce0f26-403b-40a2-97a2-ecbc0941e8bb" />
 
 ## Entry 2 - Firmware Simulation and Differential Logic (3h 00m)
 
