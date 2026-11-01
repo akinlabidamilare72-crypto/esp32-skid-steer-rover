@@ -22,7 +22,7 @@ An open-hardware, Wi-Fi teleoperated rover designed, bare-metal ESP32, and an of
 **Open cockpit:** Open any web browser and navigate to 'http://192.168.4.1'.
 **Drive:**
 * **Mobile Cockpit:** Use touch pedals for throttle/brake, and either the virtual steering wheel or device tilt to steer.
-   * **Desktop Cockpit:** Use `W, A, S, D` or Arrow Keys to steer, `Space` for brake, and `P` to toggle the parking brake.
+   * **Desktop Cockpit:** Use W, A, S, D or Arrow Keys to steer, `Space` for brake, and `P` to toggle the parking brake.
    * **Speed Limiter:** Adjust the on-screen slider (20% to 100%) to cap maximum motor PWM.
  ## 4. Hardware Architecture 
 * **Web Teleoperation:** Web interface streams state packets (`S:throttle,brake,steer,gear,limiter,parkingBrake`) over WebSockets at ~25 Hz.
