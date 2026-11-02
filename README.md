@@ -7,7 +7,7 @@ An open-hardware, Wi-Fi teleoperated rover designed, bare-metal ESP32, and an of
 * **Core Drivetrain:** 4-wheel-drive tank-style skid-steering, it uses 4x TT gearmotors and dual L298N motor drivers split by axle.
 * **Microcontroller:** ESP32 DevKit (CH340C Type-C) running an onboard HTTP web server and WebSockets server for low-latency teleoperation.
 * **Power Source:** 2S 18650 Li-ion battery pack stepped down by an LM2596 buck converter.
-* **3D blender model:** <img width="772" height="385" alt="image" src="https://github.com/user-attachments/assets/aeb38a31-c80b-4bc1-977d-a2d8c5553fb8" />
+  ![3D blender model] <img width="772" height="385" alt="image" src="https://github.com/user-attachments/assets/aeb38a31-c80b-4bc1-977d-a2d8c5553fb8" />
 * **Bill of material:** is in this file and ['bom.cvs']
 
 
@@ -28,15 +28,15 @@ An open-hardware, Wi-Fi teleoperated rover designed, bare-metal ESP32, and an of
 * **Processing & Safety:** ESP32 puts out a constant pwm for the motor driver depending on what the speed limiter is on and the motor driver then uses the pattern to give the motors the right amount of energy, gradual power increase prevents sudden current draw from battery to keep it healthy and the Esp32 has a 600ms window where if it doesn't revive an input from the device it's connected it it will apply the breaks
 * **GPIO Pin map:**
   * **Driver 1 (Front Axle):**
-    * `FL_IN1` -> GPIO 25 (Front-Left Forward)
-    * `FL_IN2` -> GPIO 26 (Front-Left Reverse)
-    * `FR_IN3` -> GPIO 27 (Front-Right Forward)
-    * `FR_IN4` -> GPIO 14 (Front-Right Reverse)
+    * `IN1` -> GPIO 25 (Front-Left Forward)
+    * `IN2` -> GPIO 26 (Front-Left Reverse)
+    * `IN3` -> GPIO 27 (Front-Right Forward)
+    * `IN4` -> GPIO 14 (Front-Right Reverse)
   * **Driver 2 (Rear Axle):**
-    * `RL_IN1` -> GPIO 16 (Rear-Left Forward)
-    * `RL_IN2` -> GPIO 17 (Rear-Left Reverse)
-    * `RR_IN3` -> GPIO 18 (Rear-Right Forward)
-    * `RR_IN4` -> GPIO 19 (Rear-Right Reverse)
+    * `IN1` -> GPIO 16 (Rear-Left Forward)
+    * `IN2` -> GPIO 17 (Rear-Left Reverse)
+    * `IN3` -> GPIO 18 (Rear-Right Forward)
+    * `IN4` -> GPIO 19 (Rear-Right Reverse)
 
 ## 5. power architecture
 * **power Source:** 2S 18650 Li-ion battery pack routed through a switch.
@@ -99,20 +99,20 @@ he said it was really cool and he'd like to see it built
    * Add this URL to *Additional Boards Manager URLs*
  [https://espressif.github.io/arduino-esp32/package_esp32_index.json](https://espressif.github.io/arduino-esp32/package_esp32_index.json)
      ```
-   * Open **Tools -> Board -> Boards Manager**, search for `esp32` by Espressif Systems, and install version **2.0.17**.
+   * Open **Tools -> Board -> Boards Manager**, search for esp32 by Espressif Systems, and install version **2.0.17**.
 3. **Install Required Library:**
    * Go to **Sketch -> Include Library -> Manage Libraries**.
-   * Search for and install **`WebSockets` by Markus Sattler**.
+   * Search for and install **WebSockect by Markus Sattler**.
 4. **Compile & Upload:**
-   * Open `firmware/rover_web_controller/rover_web_controller.ino`.
-   * Connect ESP32 via USB-C and select board: `DOIT ESP32 DEVKIT V1`.
+   * Open firmware/rover_web_controller/rover_web_controller.ino.
+   * Connect ESP32 via USB-C and select board: DOIT ESP32 DEVKIT .
    * Click **Upload**. (Hold physical **BOOT** button for 2 seconds if upload is stuck on on Connecting).
    * Open **Serial Monitor** at `115200 baud` to verify startup and the IP address in case if it's different.
 
 ### Part 2: Mechanical Assembly & Power Setup
 1. **Calibrate Voltage First:**
    * Connect the 2S battery pack through the rocker switch to LM2596 `IN+` and `IN-`.
-   * Switch on and turn the brass potentiometer screw until the buck converter output reads exactly **5.10V** with your multimeter if ur buck converter doesn't have a display.
+   * Switch on and turn the brass potentiometer screw until the buck converter output reads exactly **5.10V** with your multimeter if your buck converter doesn't have a display.
    * disconnect the battery before connecting it to the ESP32.
 2. **Mount Motors & Electronics:**
    * Fasten the four TT motors to the chassis base using M3 machine screws and nuts.
@@ -122,4 +122,7 @@ he said it was really cool and he'd like to see it built
    * Solder motor leads to TT motor tabs using rosin flux paste.
    * Connect switched battery power to L298N 12V rails and calibrated 5.1V to ESP32 `VIN`.
    * and your 4wd skid steer rover is ready to drive
-   * next you'll connect ur device to it's Wi-Fi and copy the IP address mentioned earlier to your browser there you'll see all the controls and u can start operating the rover
+   * next you'll connect your device to it's Wi-Fi and copy the IP address mentioned earlier to your browser there you'll see all the controls and u can start operating the rover
+
+## AI DISCLOSURE
+I used AI to generate the code confirm features that are possible and choose the most affordable parts that could still run all the features of the project  normally.
