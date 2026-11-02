@@ -101,7 +101,7 @@ he said it was really cool and he'd like to see it built
 
    * Go to Sketch -> Include Library -> Manage Libraries.
    * Search for and install WebSockect by Markus Sattler.
-   * <img width="247" height="270" alt="image" src="https://github.com/user-attachments/assets/8afb25a2-4a70-4fcc-804a-08359bf24102" />
+    <img width="247" height="270" alt="image" src="https://github.com/user-attachments/assets/8afb25a2-4a70-4fcc-804a-08359bf24102" />
 
    * Open firmware/rover_web_controller,
    * Connect ESP32 via USB-C or micro usb depending on which version you are with and select board: DOIT ESP32 DEVKIT .
