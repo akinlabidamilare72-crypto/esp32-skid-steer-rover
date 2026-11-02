@@ -1,8 +1,8 @@
 # Build Journal
 
-## Entry 1 - Planning and Motor Testing (2h 00m)
+## Entry 1 - Planning and Motor Testing (3h 00m)
 
-**Time spent:** 2 hours
+**Time spent:** 3 hours
 
 
 I Tested small DC motors I had lying around with 3.7V lithium cells in series, I noticed they were shaking aggressively had a funny smell and overheated( I later discovered they couldn't handle the 3.7v)
