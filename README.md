@@ -1,6 +1,6 @@
 # **ESP32 4WD Skid-Steer Rover** (V1)
 
-An open-hardware, Wi-Fi teleoperated rover designed, bare-metal ESP32, and an offline local WebSockets controller.
+A 4WD skid-steer rover controled by an ESP32 that runs it's own WI-FI browser so you csn drive it offline with almost no lag/latency.
 [Chassis Assembly CAD Render]<img width="817" height="342" alt="Screenshot 2026-10-25 051615" src="https://github.com/user-attachments/assets/00974642-a6b5-4b1a-9d46-ad7c44334fe0" />
 
 ## Project Overview
@@ -12,7 +12,7 @@ An open-hardware, Wi-Fi teleoperated rover designed, bare-metal ESP32, and an of
 
 
 ### Why did I make it ### 
-* to remove my ideas from what is in my mind or and my drafts to an actual real object that works as intended 
+* to remove my ideas from what is in my head and my notebook drafts drafts to an actual real object that works as intended 
 * i also wanted to test my abilities to see if I can actual build what I say I can to prove I'm no all mouth
 * and it will be fun to share the experience with people that are curious about how I made it
 
@@ -25,7 +25,7 @@ An open-hardware, Wi-Fi teleoperated rover designed, bare-metal ESP32, and an of
    * **Desktop Cockpit:** Use W, A, S, D or Arrow Keys to steer, Space for brake, and P to toggle the parking brake.
    * **Speed Limiter:** Adjust the on-screen slider for PC or slide your finger up and down the screen for the mobile version to cap maximum motor PWM.
  ## Hardware Architecture 
-* **Processing & Safety:** ESP32 puts out a constant PWM for the motor driver depending on what the speed limiter is on and the motor driver then uses the pattern to give the motors the right amount of energy, gradual power increase prevents sudden current draw from battery to keep it healthy and the Esp32 has a 600ms window where if it doesn't revive an input from the device it's connected it it will apply the breaks
+* **Processing & Safety:** ESP32 puts out a constant PWM for the motor driver depending on what the speed limiter is on and the motor driver then uses the pattern to give the motors the right amount of energy, gradual power increase prevents sudden current draw from battery to keep it healthy and the Esp32 has a 600ms window where if it doesn't recive an input from the device it's connected it it will apply the brakes
 * **GPIO Pin map:**
   * **Driver 1 (Front Axle):**
     * `IN1` -> GPIO 25 (Front-Left Forward)
@@ -72,12 +72,12 @@ the full spreadsheet with links is in (bom.csv)
 | Consolidated Shipping | AliExpress Standard Shipping to Lagos Nigeria | 1 | $10.83 | $10.83 |
 | **TOTAL** | | | | **$68.09** |
 
- Total Project Cost: $68.09 USD (including toolkit and no spear hardware).
+ Total Project Cost: $68.09 USD (including toolkit and no spare hardware).
 
 
 ## Build Progress & Demonstration
 
-Comprehensive design decisions, calculations, and problem-solving logs are documented in [`JOURNAL.md`](JOURNAL.md).
+i tracked my  progress steps problems faced and more in[`JOURNAL.md`](JOURNAL.md).
 * **build photo:** [build photo will be uploaded upon completion of build]
 * **Chassis Material:** knife-cut ~20 × 15 cm birch plywood baseplate.
 * **Drivetrain:** 4x 1:48 reduction yellow TT gearmotors paired with 65 mm rubber wheels.
@@ -108,6 +108,7 @@ he said it was really cool and he'd like to see it built
    * Click Upload. (Hold physical BOOT button for 2 seconds if upload is stuck on on Connecting).
    * Open Serial Monitor at 115200 baud to verify startup and the IP address in case if it's different.
 
+# **Assembly & wiring**
    * Connect the 2S battery pack through the rocker switch to LM2596 `IN+` and `IN-`.
    * Switch on and turn the brass potentiometer screw until the buck converter output reads exactly 5.10V with your multimeter if your buck converter doesn't have a display.
    * disconnect the battery before connecting it to the ESP32.
@@ -117,7 +118,7 @@ he said it was really cool and he'd like to see it built
    * Solder motor leads to TT motor tabs using rosin flux paste.
    * Connect switched battery power to L298N 12V rails and calibrated 5.1V to ESP32 `VIN`.
    * and your 4wd skid steer rover is ready to drive
-   * next you'll connect your device to it's Wi-Fi and copy the IP address mentioned earlier to your browser there you'll see all the controls and u can start operating the rover
+   * next you'll connect your device to its Wi-Fi and copy the IP address mentioned earlier to your browser there you'll see all the controls and you can start driving the rover
 
 ## AI DISCLOSURE
-I used AI to generate the code confirm features that are possible and choose the most affordable parts that could still run all the features of the project  normally.
+I used AI to generate the code, confirm features that are possible, verify GPIO pin compatibility  and choose the most lowest cost parts that could still run all the features of the project  normally. all 3d models, physical base plate fabrication, wiring and assembly and others were done by hand
