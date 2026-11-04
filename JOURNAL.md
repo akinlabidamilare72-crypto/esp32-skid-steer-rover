@@ -77,7 +77,7 @@ so I decided to use the old batteries I had at home to power the rover to cut co
 )
 ## Entry 8 - Dynamic Electromagnetic Braking, EPB & Slider Debugging (2h 00m)
 
-**Time spent:** 2 hours
+**Time spent:** 3 hours
 
 I spent this session polishing the driving controls, fixing bugs and added a new feature
   I added a dynamic breaking feature that works by turning the motors to a generator by shorting the motor terminals through the H bridge so any movement results in an opposite movement (I don't know how to explain it that much) I added a parking break button on both the pc and mobile interface to activate the dynamic breaking it also activates when you hold the break button and fixed the bug that didn't let me change the speed limiter with my mouse while also giving it commands like 'wasd' or the arrow keys and of needing an SD card module to store the web controller files, I embedded the HTML, CSS, and WebSockets JavaScript directly inside the Arduino code (`PROGMEM`). The ESP32 boots up, hosts the Wi-Fi hotspot, and serves the whole cockpit page directly out of internal flash memory.
