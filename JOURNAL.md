@@ -31,7 +31,6 @@ by this time I was a bit sure about the parts I picked and didn't know what else
 - Built the interactive breadboard circuit on Wokwi to validate ESP32 GPIO logic before hardware procurement.
 - Wired 4 channel indicator LEDs through current-limiting resistors to pins 25, 26, 27, and 14 to represent L298N forward/reverse inputs.
 - Resolved analog ground loop errors by tying the joystick common ground rail back to ESP32 GND.
-- Tested differential turning calculations and verified dual-track outputs in real time.
 I finally tested the code and saw that the joystick wasn't giving any output (I'm moving the joystick but the led's aren't indicating that I am but I later found out that I also connected it to the wrong gnd pin
 ### Simulation Photo
 ![Simulation Testing](simulation.png)
@@ -59,24 +58,10 @@ so basicly the ai's code was bad and I had to fix it somehow firstly I had to ch
 ## Entry 6 - Dual-Driver Architecture & 4-Wheel Torque Vectoring (3h 00m)
 
 **Time spent:** 3 hours
-
-
- Eliminated parallel-wired motor pairs so each TT gearbox receives dedicated current without thermal overload or cross-motor back-EMF interference.
- Expanded ESP32 GPIO allocation to 8 dedicated output pins:
+because it is a skid-steer rover I decided to use 2 motor drivers to avoild wiring the motors in parralel and it took up 8 GPIO pins:
     - Front Axle (Driver 1): `FL_IN1` (GPIO 25), `FL_IN2` (GPIO 26), `FR_IN3` (GPIO 27), `FR_IN4` (GPIO 14)
     - Rear Axle (Driver 2): `RL_IN1` (GPIO 16), `RL_IN2` (GPIO 17), `RR_IN3` (GPIO 18), `RR_IN4` (GPIO 19)
-  - Configured 8 independent ESP32 LEDC hardware PWM timer channels operating at 1 kHz with 8-bit resolution (0–255 duty cycle) to provide silent, continuous torque control.
-- **4-Corner Electronic Differential & Torque Vectoring:**
-  - Implemented real-time proportional differential math that calculates wheel velocity curves for each corner independently during turns:
-    - Front-outside wheel runs at maximum commanded speed ($100\%$).
-    - Rear-outside wheel tracks tightly behind at $85\%$ speed.
-    - Front-inside wheel crawls through the inner radius at $30\%$ speed.
-    - Rear-inside wheel pivots at the apex at $15\%$ speed to completely eliminate tire scrubbing.
-  - Preserved standstill zero-radius counter-rotation for sharp 360° spins.
-  - Applied 4-channel synchronized soft-start ramping (`RAMP_STEP`) to protect the 7.4V battery pack from sudden inrush current spikes.
-- **Power Delivery Finalization:**
-  - Confirmed 2S series architecture (7.4V nominal) using existing 1200mAh 18650 cells in a hot-swap configuration, keeping the rover lightweight and agile while avoiding excessive weight or gear wear.
-
+    I set up the s PWM channels on the ESP32 so I have smooth throttle control on each motor
 because this was a skid steer car I had to make sure every wheel had its own dedicated driver and I went through the parts I picked again and saw that the driver I choose only had two output channels and I searched for other options but they were either too expensive or not capable so I decided to go for two L298N motor drivers which took more pins I also added soft ramping to avoid sudden current draw and probably burn out a component, added a 360° turn feature depending on the tilt angle and I really wanted to put that differential feature of cutting off power from the free wheel but discovered that it would be too stressful and time consuming to do plus it might even waist more eletricity than it saves be cause of the constant wheel voltage check and it might be almost impossible for the esp32 to know exactly how much power a motor is taking because the motor driver is a dumb component (it cannot communicate with the esp32)
 ### Progress Photo
 ![Dual Driver Firmware Update](<img width="442" height="392" alt="image" src="https://github.com/user-attachments/assets/3955c97f-0e7e-4b45-bd72-3630ffc47afa" />
@@ -94,15 +79,8 @@ so I decided to use the old batteries I had at home to power the rover to cut co
 
 **Time spent:** 2 hours
 
-
-
-- **UI Event Listener & Speed Limiter Fixes:**
-  - Diagnosed and resolved mobile browser rendering glitches where C++ `#include` headers appeared as raw text during local preview.
-  - Fixed an event listener conflict on the desktop speed limiter: removed the aggressive `keydown` focus blur that was resetting the slider when holding down the **`W`** drive key, enabling seamless on-the-fly speed adjustments while moving.
-- **Single-Binary Firmware Architecture:**
-  - Consolidated the entire web application (HTML5, responsive CSS, PointerEvents JavaScript, and WebSockets client) into a single `PROGMEM` string within `rover_web_controller.ino`.
-  - Confirmed compilation integrity in Arduino IDE, ensuring the physical ESP32 handles Wi-Fi access point broadcast, HTTP delivery, and real-time motor control from a single uploaded sketch.
-  I added a dynamic breaking feature that works by turning the motors to a generator it gives both the ends of the motors volts so any movement results in an opposite movement (I don't know how to explain it that much I added a parking break button on both the pc and mobile interface to activate the dynamic breaking it also activates when you hold the break button and fixed the bug that didn't let me chenge the speed limiter with my mouse while also giving it commands like 'wasd' or the arrow keys
+I spent this session polishing the driving controls, fixing bugs and added a new feature
+  I added a dynamic breaking feature that works by turning the motors to a generator by shorting the motor terminals through the H bridge so any movement results in an opposite movement (I don't know how to explain it that much) I added a parking break button on both the pc and mobile interface to activate the dynamic breaking it also activates when you hold the break button and fixed the bug that didn't let me change the speed limiter with my mouse while also giving it commands like 'wasd' or the arrow keys and of needing an SD card module to store the web controller files, I embedded the HTML, CSS, and WebSockets JavaScript directly inside the Arduino code (`PROGMEM`). The ESP32 boots up, hosts the Wi-Fi hotspot, and serves the whole cockpit page directly out of internal flash memory.
 
 ### Progress Photo
 (<img width="1297" height="461" alt="image" src="https://github.com/user-attachments/assets/73c31953-c6ef-404e-9016-182151f7ca84" />
