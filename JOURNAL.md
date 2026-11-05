@@ -75,7 +75,7 @@ so I decided to use the old batteries I had at home to power the rover to cut co
 <img width="1728" height="3072" alt="IMG_20261025_073826_334@409478815" src="https://github.com/user-attachments/assets/abaef9cd-67db-40e6-a2dc-2aaa096b6bd0" />
 
 )
-## Entry 8 - Dynamic Electromagnetic Braking, EPB & Slider Debugging (2h 00m)
+## Entry 8 - Dynamic Electromagnetic Braking, EPB & Slider Debugging (3h 00m)
 
 **Time spent:** 3 hours
 
