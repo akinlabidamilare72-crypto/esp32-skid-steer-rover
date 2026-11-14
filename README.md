@@ -1,7 +1,8 @@
 # **ESP32 4WD Skid-Steer Rover** (V1)
 
 A 4WD skid-steer rover controled by an ESP32 that runs it's own WI-FI browser so you csn drive it offline with almost no lag/latency.
-[Chassis Assembly CAD Render]<img width="817" height="342" alt="Screenshot 2026-10-25 051615" src="https://github.com/user-attachments/assets/00974642-a6b5-4b1a-9d46-ad7c44334fe0" />
+[Chassis Assembly CAD Render]<img width="817" height="482" alt="Screenshot 2026-11-14 080056" src="https://github.com/user-attachments/assets/11e89ca3-7105-486c-87ba-7a41581a7c7f" />
+
 
 ## Project Overview
 * **Core Drivetrain:** 4-wheel-drive tank-style skid-steering, it uses 4x TT gearmotors and dual L298N motor drivers split by axle.
