@@ -87,7 +87,7 @@ I spent this session polishing the driving controls, fixing bugs and added a new
 
 ## Entry 9 - Chassis Modelling (6h 00m)
 
- **Time spent**
+ **Time spent:** 6 hours
 
  I spent almost 3 days trying to re model the chassis cause some said it looked A.I generated and it was genuinely annoying cause I was also in the university registering my courses and going for classes and doing a 3d model any ways, I did it again the hardest part was the wheel cause I didn't want to use a cylinder again so I used something that looked closer to a wheel than a drum and added two cylinders to connect it to the motors it's low poly so don't expect too much details and the entire code was AI generated the reason most of my time was spent on code  editing was because the IA kept messing up the code and UI constantly and it kept failing all the tests I gave it and also because I don't have any hardware to work with yet.
  <img width="817" height="482" alt="Screenshot 2026-11-14 080056" src="https://github.com/user-attachments/assets/93dcb5d8-693e-4ea0-8dc4-a701070c06fc" />
