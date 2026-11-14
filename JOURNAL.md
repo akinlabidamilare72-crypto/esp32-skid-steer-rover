@@ -85,7 +85,7 @@ I spent this session polishing the driving controls, fixing bugs and added a new
 ### Progress Photo
 (<img width="1297" height="461" alt="image" src="https://github.com/user-attachments/assets/73c31953-c6ef-404e-9016-182151f7ca84" />
 
-## Entry 8 - chassis modelling (6h 00m)
+## Entry 9 - Chassis Modelling (6h 00m)
 
  **Time spent**
 
